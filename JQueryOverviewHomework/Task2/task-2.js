@@ -39,7 +39,7 @@ function solve() {
                     .nextAll('.content')
                     .first();
 
-            if ($contentToShowOrHide.next().hasClass('button')) {
+            if ($contentToShowOrHide.nextAll().hasClass('button')) {
                 var isVisible = $contentToShowOrHide.is(':visible');
 
                 if (!isVisible) {
