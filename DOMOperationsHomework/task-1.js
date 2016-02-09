@@ -18,7 +18,6 @@ Create a function that takes an id or DOM element and an array of contents
 */
 
 module.exports = function () {
-
   function checkIfContentIsNumberOrString(contents) {
     var j,
         len;
@@ -47,8 +46,7 @@ module.exports = function () {
     if (typeof element === 'string') {
       theElement = document.getElementById(element);
       theElement.innerHTML = '';
-    }
-    else {
+    } else {
       theElement = element;
       theElement.innerHTML = '';
     }
