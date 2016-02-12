@@ -1,4 +1,3 @@
-//
 //#DOM Operations
 //_For instructions on how to run the tests, check the following link:
 //    https://github.com/TelerikAcademy/JavaScript-UI-and-DOM/blob/master/README.md#user-content-preparing-the-local-machine-for-unit-testing-with-mocha-and-chai
@@ -20,50 +19,46 @@
 
 module.exports = function () {
 
-  return function (element, contents) {
-    var theElement,
-        i,
-        j,
-        len = contents.length,
-        documentFragment = document.createDocumentFragment(),
-        div = document.createElement('div'),
-        currentDiv;
+    return function (element, contents) {
+        var theElement,
+            i,
+            j,
+            len = contents.length,
+            documentFragment = document.createDocumentFragment(),
+            div = document.createElement('div'),
+            currentDiv;
 
-    function ValidateInputArguments(arguments) {
-      if (typeof(element) !== 'string' && !(element instanceof HTMLElement)) {
-        throw new Error('Invalid first argument!');
-      }
-
-      if (!Array.isArray(contents)) {
-        throw new Error('The second argument passed should be an array!');
-      }
-
-      for(j = 0; j < len; j+= 1){
-        if(typeof contents[j] !== 'string' && typeof contents[j] !== 'number'){
-          throw new Error('Array elements should be either numbers or strings!');
+        if (typeof(element) !== 'string' && !(element instanceof HTMLElement)) {
+            throw new Error('Invalid first argument!');
         }
-      }
+
+        if (!Array.isArray(contents)) {
+            throw new Error('The second argument passed should be an array!');
+        }
+
+        for (j = 0; j < len; j += 1) {
+            if (typeof contents[j] !== 'string' && typeof contents[j] !== 'number') {
+                throw new Error('Array elements should be either numbers or strings!');
+            }
+        }
+
+        if (typeof element === "string") {
+            theElement = document.getElementById(element);
+
+            if (theElement === null) {
+                throw new Error("An element with the given id does not exist!");
+            }
+        } else {
+            theElement = element;
+        }
+
+        for (i = 0; i < len; i += 1) {
+            currentDiv = div.cloneNode(true);
+            currentDiv.innerHTML = contents[i];
+            documentFragment.appendChild(currentDiv);
+        }
+
+        theElement.innerHTML = '';
+        theElement.appendChild(documentFragment);
     }
-
-    ValidateInputArguments(element, contents);
-
-    if (typeof element === "string") {
-      theElement = document.getElementById(element);
-
-      if (theElement === null) {
-        throw new Error("An element with the given id does not exist!");
-      }
-    } else {
-      theElement = element;
-    }
-
-    for (i = 0; i < len; i += 1) {
-      currentDiv = div.cloneNode(true);
-      currentDiv.innerHTML = contents[i];
-      documentFragment.appendChild(currentDiv);
-    }
-
-    theElement.innerHTML = '';
-    theElement.appendChild(documentFragment);
-  }
 };
